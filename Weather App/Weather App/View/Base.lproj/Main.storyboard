@@ -5,6 +5,7 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -31,11 +32,59 @@
                             <outlet property="delegate" destination="LjG-YW-dIi" id="zcc-Ec-jpt"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="eA5-LA-H9t"/>
+                    <navigationItem key="navigationItem" id="eA5-LA-H9t">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="jPD-aZ-dFM">
+                            <connections>
+                                <segue destination="0xf-QM-0jF" kind="show" identifier="addCitySegue" id="Ahb-jK-WuT"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yib-af-zKT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1719.2" y="131.78410794602701"/>
+        </scene>
+        <!--Add City View Controller-->
+        <scene sceneID="TDv-GX-xLv">
+            <objects>
+                <viewController id="0xf-QM-0jF" customClass="AddCityViewController" customModule="Weather_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Knk-tk-Xgb">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yVf-bL-4Rw" userLabel="Container View">
+                                <rect key="frame" x="0.0" y="64" width="375" height="176"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter City Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eKm-Lu-gQT" userLabel="City Name Text Field">
+                                        <rect key="frame" x="101" y="28" width="172" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Zv-Tg-mmP" userLabel="Get Weather Button">
+                                        <rect key="frame" x="144" y="73" width="87" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Get Weather"/>
+                                        <connections>
+                                            <action selector="getWeatherPressed:" destination="0xf-QM-0jF" eventType="touchUpInside" id="dhb-Oc-Tdt"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="pTG-JL-Z3g"/>
+                    </view>
+                    <connections>
+                        <outlet property="addCityTextField" destination="eKm-Lu-gQT" id="xOo-dl-N59"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qsr-3i-eOn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2364" y="133.5832083958021"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="stD-CV-0Oj">
