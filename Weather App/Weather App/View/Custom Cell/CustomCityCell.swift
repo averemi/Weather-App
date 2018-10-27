@@ -13,7 +13,7 @@ class CustomCityCell: UITableViewCell {
     
     @IBOutlet weak var cityLabel: UILabel!
     @IBOutlet weak var temperatureLabel: UILabel!
-    @IBOutlet weak var weatherIcon: UIImageView!
+ //   @IBOutlet weak var weatherIcon: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

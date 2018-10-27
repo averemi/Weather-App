@@ -33,9 +33,12 @@ class AddCityViewController: UIViewController {
         if let cityName = addCityTextField.text {
 
             delegate?.userAddedANewCityName(city: cityName)
+            print(cityName)
             
-            self.dismiss(animated: true, completion: nil)
+            
         }
+        self.navigationController?.popViewController(animated: true)
+        self.dismiss(animated: true, completion: nil)
     }
         
 

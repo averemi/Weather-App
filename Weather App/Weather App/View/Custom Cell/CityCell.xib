@@ -17,38 +17,25 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="80.666666666666671"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Temp" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zuA-Ue-dqa">
-                        <rect key="frame" x="209" y="30" width="43" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="City" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Ki-Yo-uzC">
+                        <rect key="frame" x="16" y="11" width="31" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KKK-He-xNm" userLabel="Picture">
-                        <rect key="frame" x="260" y="15" width="53" height="53"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="53" id="V9u-bj-2Ih"/>
-                            <constraint firstAttribute="width" constant="53" id="cfG-zK-5xi"/>
-                        </constraints>
-                    </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="City" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Ki-Yo-uzC">
-                        <rect key="frame" x="16" y="30" width="31" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Temp" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zuA-Ue-dqa">
+                        <rect key="frame" x="261" y="11" width="43" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
-                <constraints>
-                    <constraint firstItem="KKK-He-xNm" firstAttribute="leading" secondItem="2SS-CF-kBl" secondAttribute="leading" id="CER-Dt-k53"/>
-                    <constraint firstItem="KKK-He-xNm" firstAttribute="top" secondItem="2SS-CF-kBl" secondAttribute="top" constant="10" id="vea-Ie-2uS"/>
-                </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="avatarImageView" destination="KKK-He-xNm" id="Fn7-YS-QGj"/>
                 <outlet property="cityLabel" destination="8Ki-Yo-uzC" id="cmv-bR-GIf"/>
                 <outlet property="temperatureLabel" destination="zuA-Ue-dqa" id="u9S-oT-cCC"/>
-                <outlet property="weatherImage" destination="KKK-He-xNm" id="RdF-mi-Odf"/>
             </connections>
             <point key="canvasLocation" x="437.68115942028987" y="381.11413043478262"/>
         </tableViewCell>

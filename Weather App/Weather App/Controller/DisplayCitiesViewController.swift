@@ -13,10 +13,10 @@ import SwiftyJSON
 class DisplayCitiesViewController: UITableViewController, AddCityDelegate {
     
     let itemArray = ["Kyiv", "Odesa", "Chernivtsi"]
+    var citiesArray : [WeatherDataModel] = [WeatherDataModel]()
     
     let WEATHER_URL = "http://api.openweathermap.org/data/2.5/weather"
     let APP_ID = "af1207b2373e5a3fbdef6c0151ad03af"
-    let weatherDataModel = WeatherDataModel()
     let cellInfo = CustomCityCell()
     
     
@@ -25,7 +25,15 @@ class DisplayCitiesViewController: UITableViewController, AddCityDelegate {
         super.viewDidLoad()
         
         tableView.register(UINib(nibName: "CityCell", bundle: nil), forCellReuseIdentifier: "customCityCell")
+        createInitialCitiesList()
         
+    }
+    
+    func createInitialCitiesList() {
+        for city in itemArray {
+            let params : [String : String] = ["q" : city, "appid" : APP_ID]
+            getWeatherData(url: WEATHER_URL, parameters: params)
+        }
     }
     
     
@@ -63,16 +71,19 @@ class DisplayCitiesViewController: UITableViewController, AddCityDelegate {
         
         if let tempResult = json["main"]["temp"].double {
             
-            weatherDataModel.temperature = Int(tempResult - 273.15)
+            let cityWeatherInfo = WeatherDataModel()
             
-            weatherDataModel.city = json["name"].stringValue
+            cityWeatherInfo.temperature = Int(tempResult - 273.15)
             
-            weatherDataModel.condition = json["weather"][0]["id"].intValue
+            cityWeatherInfo.city = json["name"].stringValue
             
-            weatherDataModel.weatherIconName = weatherDataModel.updateWeatherIcon(condition: weatherDataModel.condition)
+            cityWeatherInfo.condition = json["weather"][0]["id"].intValue
             
-       //     updateUIWithWeatherData()
+      //      cityWeatherInfo.weatherIconName = cityWeatherInfo.updateWeatherIcon(condition: cityWeatherInfo.condition)
             
+            citiesArray.append(cityWeatherInfo)
+            
+            tableView.reloadData()
         }
         else {
             cellInfo.cityLabel.text = "Weather Unavailable"
@@ -81,50 +92,31 @@ class DisplayCitiesViewController: UITableViewController, AddCityDelegate {
     
     
     
-    
-    //MARK: - UI Updates
-    /***************************************************************/
-    
-    
-    //Write the updateUIWithWeatherData method here:
-    
- /*   func updateUIWithWeatherData() {
-        
-        cityLabel.text = weatherDataModel.city
-        temperatureLabel.text = String(weatherDataModel.temperature) + "°"
-        weatherIcon.image = UIImage(named: weatherDataModel.weatherIconName)
-        
-    }*/
-    
-    
-    
     //MARK: - Change City Delegate methods
     /***************************************************************/
     
     
-    //Write the userEnteredANewCityName Delegate method here:
-    
     func userAddedANewCityName(city: String) {
         let params : [String : String] = ["q" : city, "appid" : APP_ID]
-        
         getWeatherData(url: WEATHER_URL, parameters: params)
+
     }
     
-    
-    
-
     
     // MARK - TableView DataSource Methods
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return itemArray.count
+        return citiesArray.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CityItemCell", for: indexPath)// as! CustomCityCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "customCityCell", for: indexPath) as! CustomCityCell
         
-        cell.textLabel?.text = itemArray[indexPath.row]
-     //   cell.cityLabel.text =
+     //   cell.textLabel?.text = itemArray[indexPath.row]
+        cell.cityLabel.text = citiesArray[indexPath.row].city
+        cell.temperatureLabel.text = String(citiesArray[indexPath.row].temperature) + "°"
+        
+ //       cell.weatherIcon.image = UIImage(named: citiesArray[indexPath.row].weatherIconName)
         
         return cell
     }
