@@ -13,7 +13,6 @@ import CoreData
 
 class DisplayCitiesViewController: UITableViewController, AddCityDelegate {
     
-    let itemArray = ["Kyiv", "Odesa", "Chernivtsi"]
     var citiesArray : [WeatherDataModel] = [WeatherDataModel]()
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
@@ -29,16 +28,18 @@ class DisplayCitiesViewController: UITableViewController, AddCityDelegate {
         print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         
         tableView.register(UINib(nibName: "CityCell", bundle: nil), forCellReuseIdentifier: "customCityCell")
-        createInitialCitiesList()
+  //      createInitialCitiesList()
+        loadCityInfo()
         
     }
-    
+
+/*
     func createInitialCitiesList() {
         for city in itemArray {
             let params : [String : String] = ["q" : city, "appid" : APP_ID]
             getWeatherData(url: WEATHER_URL, parameters: params)
         }
-    }
+    }*/
     
     
     //MARK: - Networking
@@ -109,6 +110,16 @@ class DisplayCitiesViewController: UITableViewController, AddCityDelegate {
     }
     
     
+    func loadCityInfo() {
+        let request : NSFetchRequest<WeatherDataModel> = WeatherDataModel.fetchRequest()
+        do {
+            citiesArray = try context.fetch(request)
+        } catch {
+            print("Error fetching data from context \(error)")
+        }
+    }
+    
+    
     
     //MARK: - Change City Delegate methods
     /***************************************************************/
@@ -143,7 +154,7 @@ class DisplayCitiesViewController: UITableViewController, AddCityDelegate {
     // MARK - TableView Delegate Methods
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(itemArray[indexPath.row])
+//        print(itemArray[indexPath.row])
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
