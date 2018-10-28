@@ -9,11 +9,13 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import CoreData
 
 class DisplayCitiesViewController: UITableViewController, AddCityDelegate {
     
     let itemArray = ["Kyiv", "Odesa", "Chernivtsi"]
     var citiesArray : [WeatherDataModel] = [WeatherDataModel]()
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     let WEATHER_URL = "http://api.openweathermap.org/data/2.5/weather"
     let APP_ID = "af1207b2373e5a3fbdef6c0151ad03af"
@@ -23,6 +25,8 @@ class DisplayCitiesViewController: UITableViewController, AddCityDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         
         tableView.register(UINib(nibName: "CityCell", bundle: nil), forCellReuseIdentifier: "customCityCell")
         createInitialCitiesList()
@@ -71,23 +75,37 @@ class DisplayCitiesViewController: UITableViewController, AddCityDelegate {
         
         if let tempResult = json["main"]["temp"].double {
             
-            let cityWeatherInfo = WeatherDataModel()
             
-            cityWeatherInfo.temperature = Int(tempResult - 273.15)
+            
+            let cityWeatherInfo = WeatherDataModel(context: self.context)
+            
+            cityWeatherInfo.temperature = Int32(tempResult - 273.15)
             
             cityWeatherInfo.city = json["name"].stringValue
             
-            cityWeatherInfo.condition = json["weather"][0]["id"].intValue
+            cityWeatherInfo.condition = Int32(json["weather"][0]["id"].intValue)
+            
+            cityWeatherInfo.weatherIconName = ""
             
       //      cityWeatherInfo.weatherIconName = cityWeatherInfo.updateWeatherIcon(condition: cityWeatherInfo.condition)
             
             citiesArray.append(cityWeatherInfo)
-            
-            tableView.reloadData()
+            saveCityInfo()
         }
         else {
             cellInfo.cityLabel.text = "Weather Unavailable"
         }
+    }
+    
+    func saveCityInfo() {
+        
+        do {
+            try context.save()
+        } catch {
+            print("Error saving context \(error)")
+        }
+        
+        tableView.reloadData()
     }
     
     
@@ -111,10 +129,11 @@ class DisplayCitiesViewController: UITableViewController, AddCityDelegate {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "customCityCell", for: indexPath) as! CustomCityCell
+        let cityItem = citiesArray[indexPath.row]
         
      //   cell.textLabel?.text = itemArray[indexPath.row]
-        cell.cityLabel.text = citiesArray[indexPath.row].city
-        cell.temperatureLabel.text = String(citiesArray[indexPath.row].temperature) + "°"
+        cell.cityLabel.text = cityItem.city
+        cell.temperatureLabel.text = String(cityItem.temperature) + "°"
         
  //       cell.weatherIcon.image = UIImage(named: citiesArray[indexPath.row].weatherIconName)
         
@@ -139,6 +158,48 @@ class DisplayCitiesViewController: UITableViewController, AddCityDelegate {
             
             destinationVC.delegate = self
             
+        }
+    }
+    
+    func updateWeatherIcon(condition: Int) -> String {
+        
+        switch (condition) {
+            
+        case 0...300 :
+            return "tstorm1"
+            
+        case 301...500 :
+            return "light_rain"
+            
+        case 501...600 :
+            return "shower3"
+            
+        case 601...700 :
+            return "snow4"
+            
+        case 701...771 :
+            return "fog"
+            
+        case 772...799 :
+            return "tstorm3"
+            
+        case 800 :
+            return "sunny"
+            
+        case 801...804 :
+            return "cloudy2"
+            
+        case 900...903, 905...1000  :
+            return "tstorm3"
+            
+        case 903 :
+            return "snow5"
+            
+        case 904 :
+            return "sunny"
+            
+        default :
+            return "dunno"
         }
     }
     
