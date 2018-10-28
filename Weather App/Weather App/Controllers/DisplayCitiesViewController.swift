@@ -28,18 +28,24 @@ class DisplayCitiesViewController: UITableViewController, AddCityDelegate {
         print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         
         tableView.register(UINib(nibName: "CityCell", bundle: nil), forCellReuseIdentifier: "customCityCell")
-  //      createInitialCitiesList()
+        
         loadCityInfo()
+        updateInitialCitiesInfo()
+        
         
     }
 
-/*
-    func createInitialCitiesList() {
-        for city in itemArray {
-            let params : [String : String] = ["q" : city, "appid" : APP_ID]
-            getWeatherData(url: WEATHER_URL, parameters: params)
+
+    func updateInitialCitiesInfo() {
+        
+        for city in citiesArray {
+            if let cityName = city.city {
+                let params : [String : String] = ["q" : cityName, "appid" : APP_ID]
+                getWeatherData(url: WEATHER_URL, parameters: params, cityWeatherInfo: city, isNewCity: false)
+                
+            }
         }
-    }*/
+    }
     
     
     //MARK: - Networking
@@ -47,17 +53,25 @@ class DisplayCitiesViewController: UITableViewController, AddCityDelegate {
     
     //Write the getWeatherData method here:
     
-    func getWeatherData(url: String, parameters: [String: String]) {
+    func getWeatherData(url: String, parameters: [String: String], cityWeatherInfo: WeatherDataModel, isNewCity: Bool) {
         
         Alamofire.request(url, method: .get, parameters: parameters).responseJSON {
             response in
             if response.result.isSuccess {
                 print("Success! Got the weather data")
                 
-                let weatherJSON : JSON = JSON(response.result.value!)
-                self.updateWeatherData(json: weatherJSON)
+                let weatherJSON : JSON =  JSON(response.result.value!)
+                if (!isNewCity) {
+                    self.updateWeatherData(json: weatherJSON, cityWeatherInfo: cityWeatherInfo, isNewCity: isNewCity)
+                } else {
+                    let cityID = Int64(weatherJSON["id"].intValue)
+                    if (self.filterCities(cityID: Int(cityID))) {
+                        let cityWeatherInfo = WeatherDataModel(context: self.context)
+                        self.updateWeatherData(json: weatherJSON, cityWeatherInfo: cityWeatherInfo, isNewCity: isNewCity)
+                        
+                }
             }
-            else {
+            } else {
                 print("Error \(String(describing: response.result.error))")
                 self.cellInfo.cityLabel.text = "Connection Issues"
             }
@@ -72,13 +86,13 @@ class DisplayCitiesViewController: UITableViewController, AddCityDelegate {
     
     
     //Write the updateWeatherData method here:
-    func updateWeatherData(json : JSON) {
+        func updateWeatherData(json : JSON, cityWeatherInfo : WeatherDataModel, isNewCity: Bool) {
         
         if let tempResult = json["main"]["temp"].double {
             
             
             
-            let cityWeatherInfo = WeatherDataModel(context: self.context)
+        //    let cityWeatherInfo = WeatherDataModel(context: self.context)
             
             cityWeatherInfo.temperature = Int32(tempResult - 273.15)
             
@@ -88,14 +102,30 @@ class DisplayCitiesViewController: UITableViewController, AddCityDelegate {
             
             cityWeatherInfo.weatherIconName = ""
             
+            cityWeatherInfo.id = Int64(json["id"].intValue)
+            
+            if (isNewCity) {
+                citiesArray.append(cityWeatherInfo)
+            }
+            saveCityInfo()
+            
       //      cityWeatherInfo.weatherIconName = cityWeatherInfo.updateWeatherIcon(condition: cityWeatherInfo.condition)
             
-            citiesArray.append(cityWeatherInfo)
-            saveCityInfo()
         }
         else {
-            cellInfo.cityLabel.text = "Weather Unavailable"
+          //  cellInfo.cityLabel.text = "Weather Unavailable"
         }
+    }
+    
+    func filterCities(cityID : Int) -> Bool {
+        print(cityID)
+        for city in citiesArray {
+            if city.id == cityID {
+                return false
+            }
+        }
+        return true
+        
     }
     
     func saveCityInfo() {
@@ -126,8 +156,11 @@ class DisplayCitiesViewController: UITableViewController, AddCityDelegate {
     
     
     func userAddedANewCityName(city: String) {
+        
+        let newCity = WeatherDataModel()
+        
         let params : [String : String] = ["q" : city, "appid" : APP_ID]
-        getWeatherData(url: WEATHER_URL, parameters: params)
+        getWeatherData(url: WEATHER_URL, parameters: params, cityWeatherInfo: newCity, isNewCity: true)
 
     }
     

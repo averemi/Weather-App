@@ -3,10 +3,11 @@
     <entity name="WeatherDataModel" representedClassName=".WeatherDataModel" syncable="YES" codeGenerationType="class">
         <attribute name="city" attributeType="String" syncable="YES"/>
         <attribute name="condition" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="id" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="temperature" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="weatherIconName" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="WeatherDataModel" positionX="-54" positionY="-9" width="128" height="105"/>
+        <element name="WeatherDataModel" positionX="-54" positionY="-9" width="128" height="120"/>
     </elements>
 </model>
