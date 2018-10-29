@@ -17,6 +17,7 @@
 		6031D98B218354A400659EAD /* AddCityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6031D98A218354A400659EAD /* AddCityViewController.swift */; };
 		607C17F62185935C00CB124D /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 607C17F42185935C00CB124D /* DataModel.xcdatamodeld */; };
 		607C181B21864ECF00CB124D /* DetailedInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607C181A21864ECF00CB124D /* DetailedInfoViewController.swift */; };
+		607C183D2187B72E00CB124D /* DataModel.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 607C183C2187B72E00CB124D /* DataModel.sqlite */; };
 		D3929FE7040194263AF1374E /* Pods_Weather_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E90211909CB71D71FFCF736 /* Pods_Weather_App.framework */; };
 /* End PBXBuildFile section */
 
@@ -34,6 +35,7 @@
 		6031D98A218354A400659EAD /* AddCityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCityViewController.swift; sourceTree = "<group>"; };
 		607C17F52185935C00CB124D /* Data Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Data Model.xcdatamodel"; sourceTree = "<group>"; };
 		607C181A21864ECF00CB124D /* DetailedInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedInfoViewController.swift; sourceTree = "<group>"; };
+		607C183C2187B72E00CB124D /* DataModel.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; name = DataModel.sqlite; path = "Weather App/DataModel.sqlite"; sourceTree = "<group>"; };
 		83F004483898CF19B7100280 /* Pods-Weather App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Weather App.release.xcconfig"; path = "Pods/Target Support Files/Pods-Weather App/Pods-Weather App.release.xcconfig"; sourceTree = "<group>"; };
 		BD6DB8144044079D59ABD41D /* Pods-Weather App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Weather App.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Weather App/Pods-Weather App.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -61,6 +63,7 @@
 		6031D9632183270F00659EAD = {
 			isa = PBXGroup;
 			children = (
+				607C183C2187B72E00CB124D /* DataModel.sqlite */,
 				6031D96E2183270F00659EAD /* Weather App */,
 				6031D96D2183270F00659EAD /* Products */,
 				6DC802AC6684CDD32C469CD0 /* Pods */,
@@ -206,6 +209,7 @@
 				6031D97A2183271A00659EAD /* LaunchScreen.storyboard in Resources */,
 				6031D9772183271900659EAD /* Assets.xcassets in Resources */,
 				6031D98721832C5500659EAD /* CityCell.xib in Resources */,
+				607C183D2187B72E00CB124D /* DataModel.sqlite in Resources */,
 				6031D9752183270F00659EAD /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -245,6 +249,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Weather App/Pods-Weather App-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/ChameleonFramework/ChameleonFramework.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -252,6 +257,7 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ChameleonFramework.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;

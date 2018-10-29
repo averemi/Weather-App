@@ -10,6 +10,7 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 import CoreData
+import ChameleonFramework
 
 class DisplayCitiesViewController: UITableViewController, AddCityDelegate {
     
@@ -17,10 +18,8 @@ class DisplayCitiesViewController: UITableViewController, AddCityDelegate {
     var forecastArray : [WeatherForecast] = [WeatherForecast]()
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
-  //  let contextForecast = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     let WEATHER_URL = "http://api.openweathermap.org/data/2.5/weather"
-  //  let WEATHER_FORECAST_URL = "http://api.openweathermap.org/data/2.5/forecast"
     let APP_ID = "af1207b2373e5a3fbdef6c0151ad03af"
     let cellInfo = CustomCityCell()
     
@@ -29,15 +28,24 @@ class DisplayCitiesViewController: UITableViewController, AddCityDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
+    //    print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         
         tableView.register(UINib(nibName: "CityCell", bundle: nil), forCellReuseIdentifier: "customCityCell")
         
+        
+        
+     //   tableView.separatorStyle = .none
+        
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "cityListBackground.jpg")!)
+        
+     //   setStatusBarBackgroundColor()
         loadCityInfo()
         updateInitialCitiesInfo()
         
         
     }
+    
+  
 
 
     func updateInitialCitiesInfo() {
@@ -51,68 +59,7 @@ class DisplayCitiesViewController: UITableViewController, AddCityDelegate {
             }
         }
     }
-    /*
-    func getWeatherForecast(url: String, parameters: [String: String], cityWeatherInfo: WeatherDataModel, isNewCity: Bool) {
-        
-        Alamofire.request(url, method: .get, parameters: parameters).responseJSON {
-            response in
-            if response.result.isSuccess {
-                print("Success! Got the weather data")
-                
-                let weatherJSON : JSON =  JSON(response.result.value!)
-                if (!isNewCity) {
-                    self.updateWeatherForecast(json: weatherJSON, with: cityWeatherInfo, with: isNewCity)
-                } else {
-                    let cityID = Int64(weatherJSON["id"].intValue)
-                    if (self.filterCities(cityID: Int(cityID))) {
-                        let cityWeatherInfo = WeatherDataModel(context: self.context)
-                        self.updateWeatherForecast(json: weatherJSON, with: cityWeatherInfo, with: isNewCity)
-                        
-                    }
-                }
-            } else {
-                print("Error \(String(describing: response.result.error))")
-                self.cellInfo.cityLabel.text = "Connection Issues"
-            }
-        }
-    }
-    
-    func updateWeatherForecast(json : JSON, with cityWeatherInfo : WeatherDataModel, with isNewCity: Bool) {
-        
-        
-        for eachThreeHours in stride(from: 0, to: 17, by: 8)  {
-            
-            let forecast = WeatherForecast(context: self.contextForecast)
-            
-            forecast.parentCity = cityWeatherInfo
-            forecast.temperature = Int32(json["list"][eachThreeHours]["main"]["temp"].double! - 273.15)
-            forecast.condition = Int32(json["list"][eachThreeHours]["weather"][0]["id"].intValue)
-            
-            forecastArray.append(forecast)
-                
-      //      saveForecastInfo()
-            
-        }
-      /*      cityWeatherInfo.dayOneTemp = Int32(json["list"][0]["main"]["temp"].double! - 273.15)
-            cityWeatherInfo.dayOneCond = Int32(json["list"][0]["weather"][0]["id"].intValue)
-            cityWeatherInfo.dayTwoTemp = Int32(json["list"][8]["main"]["temp"].double! - 273.15)
-            cityWeatherInfo.dayTwoCond = Int32(json["list"][8]["weather"][0]["id"].intValue)
-            cityWeatherInfo.dayThreeTemp = Int32(json["list"][16]["main"]["temp"].double! - 273.15)
-            cityWeatherInfo.dayThreeCond = Int32(json["list"][16]["weather"][0]["id"].intValue)
-        
-            print(cityWeatherInfo.dayOneTemp)
-            print(cityWeatherInfo.dayOneCond)
-            print(cityWeatherInfo.dayTwoTemp)
-            print(cityWeatherInfo.dayTwoCond)
-            print(cityWeatherInfo.dayTwoTemp)
-            print(cityWeatherInfo.dayTwoCond)*/
-        
-    /*    
-        else {
-            //  cellInfo.cityLabel.text = "Weather Unavailable"
-        }*/
-    }
-    */
+
     
     //MARK: - Networking
     /***************************************************************/
@@ -195,16 +142,6 @@ class DisplayCitiesViewController: UITableViewController, AddCityDelegate {
         return true
         
     }
-    /*
-    func saveForecastInfo() {
-        
-        do {
-            try contextForecast.save()
-        } catch {
-            print("Error saving context \(error)")
-        }
-        
-    }*/
     
     func saveCityInfo() {
         
@@ -226,12 +163,6 @@ class DisplayCitiesViewController: UITableViewController, AddCityDelegate {
             print("Error fetching data from context \(error)")
         }
         
-    /*    let requestForecast : NSFetchRequest<WeatherForecast> = WeatherForecast.fetchRequest()
-        do {
-            forecastArray = try contextForecast.fetch(requestForecast)
-        } catch {
-             print("Error fetching data from contextForecast \(error)")
-        }*/
     }
     
     
@@ -259,6 +190,11 @@ class DisplayCitiesViewController: UITableViewController, AddCityDelegate {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "customCityCell", for: indexPath) as! CustomCityCell
         let cityItem = citiesArray[indexPath.row]
+        
+     /*   if let color = FlatWhite().darken(byPercentage: CGFloat(indexPath.row) / CGFloat(citiesArray.count)) {
+            cell.backgroundColor = color
+            cell.textLabel?.textColor = ContrastColorOf(color, returnFlat: true)
+        }*/
         
      //   cell.textLabel?.text = itemArray[indexPath.row]
         cell.cityLabel.text = cityItem.city
@@ -311,6 +247,7 @@ class DisplayCitiesViewController: UITableViewController, AddCityDelegate {
             if let indexPath = tableView.indexPathForSelectedRow {
                 
                 destinationVC.selectedCity = citiesArray[indexPath.row]
+            
                 destinationVC.forecastArray = forecastArray
             
            //     destinationVC.delegate = self

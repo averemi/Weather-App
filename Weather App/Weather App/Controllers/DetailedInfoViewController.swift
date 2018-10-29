@@ -29,17 +29,7 @@ class DetailedInfoViewController: UIViewController {
         loadForecast()
         updateForecast()
         
-     //   print(selectedCity!.city)
-      //  print()
-        
-        
-    /*    if let city = selectedCity {
-       //     self.title = city.city
-        //    if let
-            tempLabel.text = String(city.temperature) + "°"
-            
-            loadForecast()
-        }*/
+
         
     }
     
@@ -111,43 +101,20 @@ class DetailedInfoViewController: UIViewController {
             
             dayForecast = dayForecast + 1
             
-   //         print(forecast.parentCity?.city)
-   //         print(forecast.temperature)
-     //       print(forecast.condition)
-            
-     //       forecastArray?.append(forecast)
-            
            
             
         }
          saveForecastInfo()
-        /*      cityWeatherInfo.dayOneTemp = Int32(json["list"][0]["main"]["temp"].double! - 273.15)
-         cityWeatherInfo.dayOneCond = Int32(json["list"][0]["weather"][0]["id"].intValue)
-         cityWeatherInfo.dayTwoTemp = Int32(json["list"][8]["main"]["temp"].double! - 273.15)
-         cityWeatherInfo.dayTwoCond = Int32(json["list"][8]["weather"][0]["id"].intValue)
-         cityWeatherInfo.dayThreeTemp = Int32(json["list"][16]["main"]["temp"].double! - 273.15)
-         cityWeatherInfo.dayThreeCond = Int32(json["list"][16]["weather"][0]["id"].intValue)
-         
-         print(cityWeatherInfo.dayOneTemp)
-         print(cityWeatherInfo.dayOneCond)
-         print(cityWeatherInfo.dayTwoTemp)
-         print(cityWeatherInfo.dayTwoCond)
-         print(cityWeatherInfo.dayTwoTemp)
-         print(cityWeatherInfo.dayTwoCond)*/
-        
-        /*
-         else {
-         //  cellInfo.cityLabel.text = "Weather Unavailable"
-         }*/
+
     }
     
     
     func updateView() {
         print("TEMPERATURE:  \(selectedCity?.temperature)")
         print("CITY: \(selectedCity?.city)")
-        print("TEMP1: \(forecastArray![0].temperature)")
+        /*print("TEMP1: \(forecastArray![0].temperature)")
         print("TEMP2: \(forecastArray![1].temperature)")
-        print("TEMP3: \(forecastArray![2].temperature)")
+        print("TEMP3: \(forecastArray![2].temperature)")*/
         
         
     }
@@ -177,12 +144,6 @@ class DetailedInfoViewController: UIViewController {
                 }
             
             updateView()
-         /*   let request : NSFetchRequest<WeatherDataModel> = WeatherDataModel.fetchRequest()
-            do {
-                citiesArray = try context.fetch(request)
-            } catch {
-                print("Error fetching data from context \(error)")
-            }*/
         }
 
     
