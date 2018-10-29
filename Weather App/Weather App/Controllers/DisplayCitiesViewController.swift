@@ -14,10 +14,13 @@ import CoreData
 class DisplayCitiesViewController: UITableViewController, AddCityDelegate {
     
     var citiesArray : [WeatherDataModel] = [WeatherDataModel]()
+    var forecastArray : [WeatherForecast] = [WeatherForecast]()
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
+  //  let contextForecast = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
     let WEATHER_URL = "http://api.openweathermap.org/data/2.5/weather"
-    let WEATHER_FORECAST_URL = "http://api.openweathermap.org/data/2.5/forecast"
+  //  let WEATHER_FORECAST_URL = "http://api.openweathermap.org/data/2.5/forecast"
     let APP_ID = "af1207b2373e5a3fbdef6c0151ad03af"
     let cellInfo = CustomCityCell()
     
@@ -43,12 +46,12 @@ class DisplayCitiesViewController: UITableViewController, AddCityDelegate {
             if let cityName = city.city {
                 let params : [String : String] = ["q" : cityName, "appid" : APP_ID]
                 getWeatherData(url: WEATHER_URL, parameters: params, cityWeatherInfo: city, isNewCity: false)
-                getWeatherForecast(url: WEATHER_FORECAST_URL, parameters: params, cityWeatherInfo: city, isNewCity: false)
+             //   getWeatherForecast(url: WEATHER_FORECAST_URL, parameters: params, cityWeatherInfo: city, isNewCity: false)
                 
             }
         }
     }
-    
+    /*
     func getWeatherForecast(url: String, parameters: [String: String], cityWeatherInfo: WeatherDataModel, isNewCity: Bool) {
         
         Alamofire.request(url, method: .get, parameters: parameters).responseJSON {
@@ -76,12 +79,21 @@ class DisplayCitiesViewController: UITableViewController, AddCityDelegate {
     
     func updateWeatherForecast(json : JSON, with cityWeatherInfo : WeatherDataModel, with isNewCity: Bool) {
         
-   //     let daysForecast = 32
         
-      //  print(json)
-        
-       //     let data = json["list"].stringValue
-            cityWeatherInfo.dayOneTemp = Int32(json["list"][0]["main"]["temp"].double! - 273.15)
+        for eachThreeHours in stride(from: 0, to: 17, by: 8)  {
+            
+            let forecast = WeatherForecast(context: self.contextForecast)
+            
+            forecast.parentCity = cityWeatherInfo
+            forecast.temperature = Int32(json["list"][eachThreeHours]["main"]["temp"].double! - 273.15)
+            forecast.condition = Int32(json["list"][eachThreeHours]["weather"][0]["id"].intValue)
+            
+            forecastArray.append(forecast)
+                
+      //      saveForecastInfo()
+            
+        }
+      /*      cityWeatherInfo.dayOneTemp = Int32(json["list"][0]["main"]["temp"].double! - 273.15)
             cityWeatherInfo.dayOneCond = Int32(json["list"][0]["weather"][0]["id"].intValue)
             cityWeatherInfo.dayTwoTemp = Int32(json["list"][8]["main"]["temp"].double! - 273.15)
             cityWeatherInfo.dayTwoCond = Int32(json["list"][8]["weather"][0]["id"].intValue)
@@ -93,37 +105,14 @@ class DisplayCitiesViewController: UITableViewController, AddCityDelegate {
             print(cityWeatherInfo.dayTwoTemp)
             print(cityWeatherInfo.dayTwoCond)
             print(cityWeatherInfo.dayTwoTemp)
-            print(cityWeatherInfo.dayTwoCond)
+            print(cityWeatherInfo.dayTwoCond)*/
         
-    /*    if let tempResult = json["main"]["temp"].double {
-            
-            
-            
-            //    let cityWeatherInfo = WeatherDataModel(context: self.context)
-            
-            cityWeatherInfo.temperature = Int32(tempResult - 273.15)
-            
-            cityWeatherInfo.city = json["name"].stringValue
-            
-            cityWeatherInfo.condition = Int32(json["weather"][0]["id"].intValue)
-            
-            cityWeatherInfo.weatherIconName = ""
-            
-            cityWeatherInfo.id = Int64(json["id"].intValue)
-            
-       //     if (isNewCity) {
-       //         citiesArray.append(cityWeatherInfo)
-       //     }
-       //     saveCityInfo()
-            
-            //      cityWeatherInfo.weatherIconName = cityWeatherInfo.updateWeatherIcon(condition: cityWeatherInfo.condition)
-            
-        }
+    /*    
         else {
             //  cellInfo.cityLabel.text = "Weather Unavailable"
         }*/
     }
-    
+    */
     
     //MARK: - Networking
     /***************************************************************/
@@ -181,6 +170,8 @@ class DisplayCitiesViewController: UITableViewController, AddCityDelegate {
             
             cityWeatherInfo.id = Int64(json["id"].intValue)
             
+            cityWeatherInfo.forecastDataAvailable = false
+            
             if (isNewCity) {
                 citiesArray.append(cityWeatherInfo)
             }
@@ -204,6 +195,16 @@ class DisplayCitiesViewController: UITableViewController, AddCityDelegate {
         return true
         
     }
+    /*
+    func saveForecastInfo() {
+        
+        do {
+            try contextForecast.save()
+        } catch {
+            print("Error saving context \(error)")
+        }
+        
+    }*/
     
     func saveCityInfo() {
         
@@ -218,12 +219,19 @@ class DisplayCitiesViewController: UITableViewController, AddCityDelegate {
     
     
     func loadCityInfo() {
-        let request : NSFetchRequest<WeatherDataModel> = WeatherDataModel.fetchRequest()
+        let requestCurrentWeather : NSFetchRequest<WeatherDataModel> = WeatherDataModel.fetchRequest()
         do {
-            citiesArray = try context.fetch(request)
+            citiesArray = try context.fetch(requestCurrentWeather)
         } catch {
             print("Error fetching data from context \(error)")
         }
+        
+    /*    let requestForecast : NSFetchRequest<WeatherForecast> = WeatherForecast.fetchRequest()
+        do {
+            forecastArray = try contextForecast.fetch(requestForecast)
+        } catch {
+             print("Error fetching data from contextForecast \(error)")
+        }*/
     }
     
     
@@ -303,6 +311,7 @@ class DisplayCitiesViewController: UITableViewController, AddCityDelegate {
             if let indexPath = tableView.indexPathForSelectedRow {
                 
                 destinationVC.selectedCity = citiesArray[indexPath.row]
+                destinationVC.forecastArray = forecastArray
             
            //     destinationVC.delegate = self
             }

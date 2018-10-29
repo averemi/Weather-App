@@ -9,11 +9,19 @@
         <attribute name="dayThreeTemp" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="dayTwoCond" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="dayTwoTemp" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="forecastDataAvailable" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="id" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="temperature" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="weatherIconName" attributeType="String" syncable="YES"/>
+        <relationship name="forecast" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WeatherForecast" inverseName="parentCity" inverseEntity="WeatherForecast" syncable="YES"/>
+    </entity>
+    <entity name="WeatherForecast" representedClassName=".WeatherForecast" syncable="YES" codeGenerationType="class">
+        <attribute name="condition" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="temperature" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="parentCity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WeatherDataModel" inverseName="forecast" inverseEntity="WeatherDataModel" syncable="YES"/>
     </entity>
     <elements>
-        <element name="WeatherDataModel" positionX="-54" positionY="-9" width="128" height="210"/>
+        <element name="WeatherDataModel" positionX="-54" positionY="-9" width="128" height="240"/>
+        <element name="WeatherForecast" positionX="117.46875" positionY="18.56640625" width="128" height="90"/>
     </elements>
 </model>
