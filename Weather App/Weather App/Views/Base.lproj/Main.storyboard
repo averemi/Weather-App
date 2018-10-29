@@ -39,10 +39,40 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="dzh-1z-Tnv" kind="show" identifier="goToDetailedInfo" id="nQS-ch-Eum"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yib-af-zKT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1719.2" y="131.78410794602701"/>
+        </scene>
+        <!--Detailed Info View Controller-->
+        <scene sceneID="HMo-qU-I6x">
+            <objects>
+                <viewController id="dzh-1z-Tnv" customClass="DetailedInfoViewController" customModule="Weather_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="76k-qF-1HI">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Temp" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3ar-ze-erq">
+                                <rect key="frame" x="166" y="90" width="43" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="He2-uL-L94"/>
+                    </view>
+                    <connections>
+                        <outlet property="tempLabel" destination="3ar-ze-erq" id="YXh-ch-8qv"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dzo-It-vh9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1719" y="985"/>
         </scene>
         <!--Add City View Controller-->
         <scene sceneID="TDv-GX-xLv">
@@ -84,7 +114,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qsr-3i-eOn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2364" y="133.5832083958021"/>
+            <point key="canvasLocation" x="2670" y="132"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="stD-CV-0Oj">

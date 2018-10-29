@@ -17,6 +17,7 @@ class DisplayCitiesViewController: UITableViewController, AddCityDelegate {
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     let WEATHER_URL = "http://api.openweathermap.org/data/2.5/weather"
+    let WEATHER_FORECAST_URL = "http://api.openweathermap.org/data/2.5/forecast"
     let APP_ID = "af1207b2373e5a3fbdef6c0151ad03af"
     let cellInfo = CustomCityCell()
     
@@ -42,9 +43,85 @@ class DisplayCitiesViewController: UITableViewController, AddCityDelegate {
             if let cityName = city.city {
                 let params : [String : String] = ["q" : cityName, "appid" : APP_ID]
                 getWeatherData(url: WEATHER_URL, parameters: params, cityWeatherInfo: city, isNewCity: false)
+                getWeatherForecast(url: WEATHER_FORECAST_URL, parameters: params, cityWeatherInfo: city, isNewCity: false)
                 
             }
         }
+    }
+    
+    func getWeatherForecast(url: String, parameters: [String: String], cityWeatherInfo: WeatherDataModel, isNewCity: Bool) {
+        
+        Alamofire.request(url, method: .get, parameters: parameters).responseJSON {
+            response in
+            if response.result.isSuccess {
+                print("Success! Got the weather data")
+                
+                let weatherJSON : JSON =  JSON(response.result.value!)
+                if (!isNewCity) {
+                    self.updateWeatherForecast(json: weatherJSON, with: cityWeatherInfo, with: isNewCity)
+                } else {
+                    let cityID = Int64(weatherJSON["id"].intValue)
+                    if (self.filterCities(cityID: Int(cityID))) {
+                        let cityWeatherInfo = WeatherDataModel(context: self.context)
+                        self.updateWeatherForecast(json: weatherJSON, with: cityWeatherInfo, with: isNewCity)
+                        
+                    }
+                }
+            } else {
+                print("Error \(String(describing: response.result.error))")
+                self.cellInfo.cityLabel.text = "Connection Issues"
+            }
+        }
+    }
+    
+    func updateWeatherForecast(json : JSON, with cityWeatherInfo : WeatherDataModel, with isNewCity: Bool) {
+        
+   //     let daysForecast = 32
+        
+      //  print(json)
+        
+       //     let data = json["list"].stringValue
+            cityWeatherInfo.dayOneTemp = Int32(json["list"][0]["main"]["temp"].double! - 273.15)
+            cityWeatherInfo.dayOneCond = Int32(json["list"][0]["weather"][0]["id"].intValue)
+            cityWeatherInfo.dayTwoTemp = Int32(json["list"][8]["main"]["temp"].double! - 273.15)
+            cityWeatherInfo.dayTwoCond = Int32(json["list"][8]["weather"][0]["id"].intValue)
+            cityWeatherInfo.dayThreeTemp = Int32(json["list"][16]["main"]["temp"].double! - 273.15)
+            cityWeatherInfo.dayThreeCond = Int32(json["list"][16]["weather"][0]["id"].intValue)
+        
+            print(cityWeatherInfo.dayOneTemp)
+            print(cityWeatherInfo.dayOneCond)
+            print(cityWeatherInfo.dayTwoTemp)
+            print(cityWeatherInfo.dayTwoCond)
+            print(cityWeatherInfo.dayTwoTemp)
+            print(cityWeatherInfo.dayTwoCond)
+        
+    /*    if let tempResult = json["main"]["temp"].double {
+            
+            
+            
+            //    let cityWeatherInfo = WeatherDataModel(context: self.context)
+            
+            cityWeatherInfo.temperature = Int32(tempResult - 273.15)
+            
+            cityWeatherInfo.city = json["name"].stringValue
+            
+            cityWeatherInfo.condition = Int32(json["weather"][0]["id"].intValue)
+            
+            cityWeatherInfo.weatherIconName = ""
+            
+            cityWeatherInfo.id = Int64(json["id"].intValue)
+            
+       //     if (isNewCity) {
+       //         citiesArray.append(cityWeatherInfo)
+       //     }
+       //     saveCityInfo()
+            
+            //      cityWeatherInfo.weatherIconName = cityWeatherInfo.updateWeatherIcon(condition: cityWeatherInfo.condition)
+            
+        }
+        else {
+            //  cellInfo.cityLabel.text = "Weather Unavailable"
+        }*/
     }
     
     
@@ -62,12 +139,12 @@ class DisplayCitiesViewController: UITableViewController, AddCityDelegate {
                 
                 let weatherJSON : JSON =  JSON(response.result.value!)
                 if (!isNewCity) {
-                    self.updateWeatherData(json: weatherJSON, cityWeatherInfo: cityWeatherInfo, isNewCity: isNewCity)
+                    self.updateWeatherData(json: weatherJSON, with: cityWeatherInfo, with: isNewCity)
                 } else {
                     let cityID = Int64(weatherJSON["id"].intValue)
                     if (self.filterCities(cityID: Int(cityID))) {
                         let cityWeatherInfo = WeatherDataModel(context: self.context)
-                        self.updateWeatherData(json: weatherJSON, cityWeatherInfo: cityWeatherInfo, isNewCity: isNewCity)
+                        self.updateWeatherData(json: weatherJSON, with: cityWeatherInfo, with: isNewCity)
                         
                 }
             }
@@ -86,7 +163,7 @@ class DisplayCitiesViewController: UITableViewController, AddCityDelegate {
     
     
     //Write the updateWeatherData method here:
-        func updateWeatherData(json : JSON, cityWeatherInfo : WeatherDataModel, isNewCity: Bool) {
+        func updateWeatherData(json : JSON, with cityWeatherInfo : WeatherDataModel, with isNewCity: Bool) {
         
         if let tempResult = json["main"]["temp"].double {
             
@@ -184,13 +261,15 @@ class DisplayCitiesViewController: UITableViewController, AddCityDelegate {
         return cell
     }
     
-    // MARK - TableView Delegate Methods
+    // MARK: TableView Delegate Methods
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        print(itemArray[indexPath.row])
-        
-        tableView.deselectRow(at: indexPath, animated: true)
+       // tableView.deselectRow(at: indexPath, animated: true)
+        performSegue(withIdentifier: "goToDetailedInfo", sender: self)
     }
+    
+    
+    
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
@@ -208,12 +287,25 @@ class DisplayCitiesViewController: UITableViewController, AddCityDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
+        
         if segue.identifier == "addCitySegue" {
             
             let destinationVC = segue.destination as! AddCityViewController
             
             destinationVC.delegate = self
             
+        }
+        
+        else if segue.identifier == "goToDetailedInfo" {
+            
+            let destinationVC = segue.destination as! DetailedInfoViewController
+            
+            if let indexPath = tableView.indexPathForSelectedRow {
+                
+                destinationVC.selectedCity = citiesArray[indexPath.row]
+            
+           //     destinationVC.delegate = self
+            }
         }
     }
     
