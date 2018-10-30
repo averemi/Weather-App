@@ -125,9 +125,10 @@ class DisplayCitiesViewController: UITableViewController, AddCityDelegate {
             
             cityWeatherInfo.descript = json["weather"][0]["description"].stringValue
             
-            cityWeatherInfo.forecastDataAvailable = false
+            
             
             if (isNewCity) {
+                cityWeatherInfo.forecastDataAvailable = false
                 citiesArray.append(cityWeatherInfo)
             }
             saveCityInfo()
@@ -233,7 +234,11 @@ class DisplayCitiesViewController: UITableViewController, AddCityDelegate {
         if (editingStyle == .delete) {
             context.delete(citiesArray[indexPath.row])
             citiesArray.remove(at: indexPath.row)
+        //    citiesArray[indexPath.row].forecast
             saveCityInfo()
+         //   for forecast in forecastArray {
+         //       print(forecast)
+         //   }
         }
     }
     

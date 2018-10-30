@@ -16,10 +16,10 @@ class DetailedInfoViewController: UIViewController, UICollectionViewDelegate, UI
     
 
     
-    
+  //  let daysOfForecast : Int = 3
     var selectedCity : WeatherDataModel?
     var forecastArray : [WeatherForecast]?
-    let contextForecast = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    var contextForecast = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     let WEATHER_FORECAST_URL = "http://api.openweathermap.org/data/2.5/forecast"
     let APP_ID = "af1207b2373e5a3fbdef6c0151ad03af"
@@ -30,6 +30,7 @@ class DetailedInfoViewController: UIViewController, UICollectionViewDelegate, UI
     @IBOutlet weak var cityLabel: UILabel!
     
     @IBOutlet weak var humidityLabel: UILabel!
+    @IBOutlet weak var upperViewContainer: UIView!
     
     @IBOutlet weak var windLabel: UILabel!
     
@@ -41,6 +42,8 @@ class DetailedInfoViewController: UIViewController, UICollectionViewDelegate, UI
     @IBOutlet weak var forecastCollectionView: UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+       //     forecastCollectionView. = 60.0
         
         cityLabel.text = selectedCity?.city
         descriptionLabel.text = selectedCity?.descript
@@ -54,6 +57,8 @@ class DetailedInfoViewController: UIViewController, UICollectionViewDelegate, UI
         
       //  let tomorrow = Date()
       //  Calendar.current.date(byAdding: day, to: <#T##Date#>)
+        
+     //   removeForecastForDeletedCities()
         
         loadForecast()
         updateForecast()
@@ -74,10 +79,11 @@ class DetailedInfoViewController: UIViewController, UICollectionViewDelegate, UI
         upperBorder.backgroundColor = UIColor.white.cgColor
         forecastCollectionView.layer.addSublayer(upperBorder)
         forecastCollectionView.layer.upperBorder.addSublayer(bottomBorder)*/
-        addUpperLayerToTheCollectionView(view: forecastCollectionView)
+        addBottomLayerToView(view: detailSectionView)
      //   addBottomLayerToTheView(view: detailSectionView)
     //    detailSectionView.layer.addSublayer(upperBorder)
         detailSectionView.backgroundColor = .clear
+        upperViewContainer.backgroundColor = .clear
       //  forecastCollectionView.layer.borderColor = UIColor.black.cgColor
      //   forecastCollectionView.attribut
       //  forecastCollectionView.layer.borderWidth = 1
@@ -90,11 +96,11 @@ class DetailedInfoViewController: UIViewController, UICollectionViewDelegate, UI
         
     }
     
-    func addUpperLayerToTheCollectionView(view: UICollectionView)
+    func addBottomLayerToView(view: UIView)
     {
         let bottomBorder = CALayer()
         
-        bottomBorder.frame = CGRectMake(0, 0, view.frame.width, 0.6)
+        bottomBorder.frame = CGRectMake(0, view.frame.height, view.frame.width, 0.6)
         
         bottomBorder.backgroundColor = UIColor.white.cgColor
         
@@ -123,11 +129,13 @@ class DetailedInfoViewController: UIViewController, UICollectionViewDelegate, UI
 
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return (forecastArray?.count)!
+        print("FORECASTS: \(forecastArray?.count)")
+        return forecastArray!.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = forecastCollectionView.dequeueReusableCell(withReuseIdentifier: "customForecastCell", for: indexPath) as! CustomForecastCell
+     //   if let arrayExist = forecastArray?[indexPath.row] {
         let forecastItem = forecastArray![indexPath.row]
         // tableView.backgroundColor = .clear
         cell.backgroundColor = .clear
@@ -144,7 +152,7 @@ class DetailedInfoViewController: UIViewController, UICollectionViewDelegate, UI
       //  cell.temperatureLabel.text = String(cityItem.temperature) + "°"
         
         //       cell.weatherIcon.image = UIImage(named: citiesArray[indexPath.row].weatherIconName)
-        
+    //    }
         return cell
     }
     
@@ -194,7 +202,7 @@ class DetailedInfoViewController: UIViewController, UICollectionViewDelegate, UI
             
             
             
-            forecastArray?[dayForecast].dayOfWeek = self.getDayOfWeek(increaseDayBy: dayForecast + 1)
+            forecast.dayOfWeek = self.getDayOfWeek(increaseDayBy: dayForecast + 1)
            
             dayForecast = dayForecast + 1
             
@@ -245,22 +253,30 @@ class DetailedInfoViewController: UIViewController, UICollectionViewDelegate, UI
         
         
         func saveForecastInfo() {
-            
+
             do {
                 try contextForecast.save()
             } catch {
                 print("Error saving context \(error)")
             }
             
+            
+            
             forecastCollectionView.reloadData()
             
         }
         
         
-        func loadForecast() {
+        func loadForecast(with requestForecast: NSFetchRequest<WeatherForecast> = WeatherForecast
+            .fetchRequest()) {
             
+            let categoryPredicate = NSPredicate(format: "parentCity.city MATCHES %@", selectedCity!.city!)
+            
+          //  if let additionalPredicate = predicate {
+                requestForecast.predicate = categoryPredicate
+           
                 
-                let requestForecast : NSFetchRequest<WeatherForecast> = WeatherForecast.fetchRequest()
+            //    let requestForecast : NSFetchRequest<WeatherForecast> = WeatherForecast.fetchRequest()
                 do {
                     forecastArray = try contextForecast.fetch(requestForecast)
                 } catch {
