@@ -32,6 +32,7 @@ class DisplayCitiesViewController: UITableViewController, AddCityDelegate {
         
         tableView.register(UINib(nibName: "CityCell", bundle: nil), forCellReuseIdentifier: "customCityCell")
         
+        tableView.rowHeight = 100.0
         
         
      //   tableView.separatorStyle = .none
@@ -74,6 +75,7 @@ class DisplayCitiesViewController: UITableViewController, AddCityDelegate {
                 print("Success! Got the weather data")
                 
                 let weatherJSON : JSON =  JSON(response.result.value!)
+              //  print(weatherJSON)
                 if (!isNewCity) {
                     self.updateWeatherData(json: weatherJSON, with: cityWeatherInfo, with: isNewCity)
                 } else {
@@ -115,7 +117,13 @@ class DisplayCitiesViewController: UITableViewController, AddCityDelegate {
             
             cityWeatherInfo.weatherIconName = ""
             
+            cityWeatherInfo.humidity = Int32(json["main"]["humidity"].intValue)
+            
+            cityWeatherInfo.wind = Int32(json["wind"]["speed"].intValue)
+            
             cityWeatherInfo.id = Int64(json["id"].intValue)
+            
+            cityWeatherInfo.descript = json["weather"][0]["description"].stringValue
             
             cityWeatherInfo.forecastDataAvailable = false
             
@@ -190,6 +198,8 @@ class DisplayCitiesViewController: UITableViewController, AddCityDelegate {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "customCityCell", for: indexPath) as! CustomCityCell
         let cityItem = citiesArray[indexPath.row]
+       // tableView.backgroundColor = .clear
+        cell.backgroundColor = .clear
         
      /*   if let color = FlatWhite().darken(byPercentage: CGFloat(indexPath.row) / CGFloat(citiesArray.count)) {
             cell.backgroundColor = color
@@ -252,48 +262,6 @@ class DisplayCitiesViewController: UITableViewController, AddCityDelegate {
             
            //     destinationVC.delegate = self
             }
-        }
-    }
-    
-    func updateWeatherIcon(condition: Int) -> String {
-        
-        switch (condition) {
-            
-        case 0...300 :
-            return "tstorm1"
-            
-        case 301...500 :
-            return "light_rain"
-            
-        case 501...600 :
-            return "shower3"
-            
-        case 601...700 :
-            return "snow4"
-            
-        case 701...771 :
-            return "fog"
-            
-        case 772...799 :
-            return "tstorm3"
-            
-        case 800 :
-            return "sunny"
-            
-        case 801...804 :
-            return "cloudy2"
-            
-        case 900...903, 905...1000  :
-            return "tstorm3"
-            
-        case 903 :
-            return "snow5"
-            
-        case 904 :
-            return "sunny"
-            
-        default :
-            return "dunno"
         }
     }
     

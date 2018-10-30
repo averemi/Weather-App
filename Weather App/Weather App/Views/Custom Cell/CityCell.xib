@@ -10,28 +10,36 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="customCityCell" rowHeight="82" id="9hv-3d-eEy" userLabel="customCityCell" customClass="CustomCityCell" customModule="Weather_App" customModuleProvider="target">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="customCityCell" rowHeight="100" id="9hv-3d-eEy" userLabel="customCityCell" customClass="CustomCityCell" customModule="Weather_App" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="81"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9hv-3d-eEy" id="2SS-CF-kBl">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="80.666666666666671"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="City" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Ki-Yo-uzC">
-                        <rect key="frame" x="16" y="11" width="31" height="21"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="City" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Ki-Yo-uzC">
+                        <rect key="frame" x="26" y="28" width="209" height="24"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Temp" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zuA-Ue-dqa">
-                        <rect key="frame" x="261" y="11" width="43" height="21"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Temp" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zuA-Ue-dqa">
+                        <rect key="frame" x="240" y="23" width="59" height="35"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="8Ki-Yo-uzC" firstAttribute="leading" secondItem="2SS-CF-kBl" secondAttribute="leadingMargin" constant="10" id="73s-lf-OBL"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="zuA-Ue-dqa" secondAttribute="bottom" constant="12" id="JsX-OZ-bAI"/>
+                    <constraint firstItem="8Ki-Yo-uzC" firstAttribute="top" secondItem="2SS-CF-kBl" secondAttribute="topMargin" constant="17" id="RHk-Mk-gfS"/>
+                    <constraint firstItem="zuA-Ue-dqa" firstAttribute="top" secondItem="2SS-CF-kBl" secondAttribute="topMargin" constant="12" id="UUB-mo-p2X"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="zuA-Ue-dqa" secondAttribute="trailing" constant="5" id="aj1-bn-MyE"/>
+                    <constraint firstItem="zuA-Ue-dqa" firstAttribute="leading" secondItem="8Ki-Yo-uzC" secondAttribute="trailing" constant="5" id="dcG-f4-Eyf"/>
+                    <constraint firstItem="zuA-Ue-dqa" firstAttribute="leading" secondItem="8Ki-Yo-uzC" secondAttribute="trailing" constant="5" id="nRY-zN-osR"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="8Ki-Yo-uzC" secondAttribute="bottom" constant="18" id="wHQ-PA-06t"/>
+                </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="cityLabel" destination="8Ki-Yo-uzC" id="cmv-bR-GIf"/>

@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Set translucent. (Default value is already true, so this can be removed if desired.)
         UINavigationBar.appearance().isTranslucent = true
         
-        setStatusBarBackgroundColor()
+ //       setStatusBarBackgroundColor()
         
         
         //UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
@@ -45,12 +45,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    func setStatusBarBackgroundColor() {
+  /*  func setStatusBarBackgroundColor() {
         guard let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView else { return }
         
         statusBar.backgroundColor = UIColor(patternImage: UIImage(named: "cityListBackground.jpg")!)
         
-    }
+    }*/
 
 
     func applicationWillTerminate(_ application: UIApplication) {
