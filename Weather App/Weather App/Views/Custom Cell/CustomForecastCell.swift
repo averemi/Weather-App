@@ -9,10 +9,7 @@
 import UIKit
 
 class CustomForecastCell: UICollectionViewCell {
-    
-    
     @IBOutlet weak var temperatureLabel: UILabel!
-    
     @IBOutlet weak var weatherIcon: UIImageView!
     @IBOutlet weak var dayOfWeek: UILabel!
 }

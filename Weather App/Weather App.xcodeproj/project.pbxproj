@@ -18,6 +18,7 @@
 		607C181B21864ECF00CB124D /* DetailedInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607C181A21864ECF00CB124D /* DetailedInfoViewController.swift */; };
 		607C183F2187CA2000CB124D /* CustomForecastCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607C183E2187CA2000CB124D /* CustomForecastCell.swift */; };
 		607C184221884C8A00CB124D /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 607C184021884C8900CB124D /* DataModel.xcdatamodeld */; };
+		607C184421889C7000CB124D /* DataModel.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 607C184321889C6E00CB124D /* DataModel.sqlite */; };
 		D3929FE7040194263AF1374E /* Pods_Weather_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E90211909CB71D71FFCF736 /* Pods_Weather_App.framework */; };
 /* End PBXBuildFile section */
 
@@ -36,6 +37,7 @@
 		607C181A21864ECF00CB124D /* DetailedInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedInfoViewController.swift; sourceTree = "<group>"; };
 		607C183E2187CA2000CB124D /* CustomForecastCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomForecastCell.swift; sourceTree = "<group>"; };
 		607C184121884C8900CB124D /* Data Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Data Model.xcdatamodel"; sourceTree = "<group>"; };
+		607C184321889C6E00CB124D /* DataModel.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = DataModel.sqlite; sourceTree = "<group>"; };
 		83F004483898CF19B7100280 /* Pods-Weather App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Weather App.release.xcconfig"; path = "Pods/Target Support Files/Pods-Weather App/Pods-Weather App.release.xcconfig"; sourceTree = "<group>"; };
 		BD6DB8144044079D59ABD41D /* Pods-Weather App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Weather App.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Weather App/Pods-Weather App.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -81,11 +83,11 @@
 		6031D96E2183270F00659EAD /* Weather App */ = {
 			isa = PBXGroup;
 			children = (
+				607C184321889C6E00CB124D /* DataModel.sqlite */,
 				6031D98321832AC700659EAD /* Model */,
 				6031D98121832A2E00659EAD /* Views */,
 				6031D98221832ABD00659EAD /* Controllers */,
 				6031D98421832ACF00659EAD /* Supporting Files */,
-				6031D96F2183270F00659EAD /* AppDelegate.swift */,
 				6031D97B2183271A00659EAD /* Info.plist */,
 			);
 			path = "Weather App";
@@ -103,6 +105,7 @@
 		6031D98221832ABD00659EAD /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				6031D96F2183270F00659EAD /* AppDelegate.swift */,
 				607C181A21864ECF00CB124D /* DetailedInfoViewController.swift */,
 				6031D9712183270F00659EAD /* DisplayCitiesViewController.swift */,
 				6031D98A218354A400659EAD /* AddCityViewController.swift */,
@@ -209,6 +212,7 @@
 				6031D97A2183271A00659EAD /* LaunchScreen.storyboard in Resources */,
 				6031D9772183271900659EAD /* Assets.xcassets in Resources */,
 				6031D98721832C5500659EAD /* CityCell.xib in Resources */,
+				607C184421889C7000CB124D /* DataModel.sqlite in Resources */,
 				6031D9752183270F00659EAD /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -248,7 +252,6 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Weather App/Pods-Weather App-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/ChameleonFramework/ChameleonFramework.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -256,7 +259,6 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ChameleonFramework.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
