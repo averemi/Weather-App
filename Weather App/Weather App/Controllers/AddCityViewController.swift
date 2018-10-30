@@ -18,13 +18,16 @@ class AddCityViewController: UIViewController {
     var delegate : AddCityDelegate?
     
     
-    @IBOutlet weak var addCityTextField: UITextField!
+   
+    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var viewContainer: UIView!
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "cityListBackground.jpg")!)
+        viewContainer.backgroundColor = .clear
 
     }
     
@@ -32,7 +35,7 @@ class AddCityViewController: UIViewController {
     @IBAction func getWeatherPressed(_ sender: AnyObject) {
             
         
-        if let cityName = addCityTextField.text {
+        if let cityName = searchBar.text {
 
             delegate?.userAddedANewCityName(city: cityName)
             print(cityName)
@@ -40,7 +43,7 @@ class AddCityViewController: UIViewController {
             
         }
         self.navigationController?.popViewController(animated: true)
-        self.dismiss(animated: true, completion: nil)
+      //  self.dismiss(animated: true, completion: nil)
     }
         
 
@@ -50,3 +53,18 @@ class AddCityViewController: UIViewController {
     
 
 }
+
+
+extension  AddCityViewController: UISearchBarDelegate {
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        DispatchQueue.main.async {
+            searchBar.resignFirstResponder()
+        }
+        
+    }
+    
+  
+}
+

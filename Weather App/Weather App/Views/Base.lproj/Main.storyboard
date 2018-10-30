@@ -252,34 +252,47 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yVf-bL-4Rw" userLabel="Container View">
-                                <rect key="frame" x="0.0" y="64" width="375" height="176"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yVf-bL-4Rw" userLabel="Container View">
+                                <rect key="frame" x="0.0" y="74" width="375" height="176"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter City Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eKm-Lu-gQT" userLabel="City Name Text Field">
-                                        <rect key="frame" x="101" y="28" width="172" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Zv-Tg-mmP" userLabel="Get Weather Button">
-                                        <rect key="frame" x="144" y="73" width="87" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Get Weather"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Zv-Tg-mmP" userLabel="Get Weather Button">
+                                        <rect key="frame" x="139" y="77" width="97" height="33"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <state key="normal" title="Get Weather">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
                                         <connections>
                                             <action selector="getWeatherPressed:" destination="0xf-QM-0jF" eventType="touchUpInside" id="dhb-Oc-Tdt"/>
                                         </connections>
                                     </button>
+                                    <searchBar contentMode="redraw" placeholder="Enter City Name" translatesAutoresizingMaskIntoConstraints="NO" id="8Bl-IK-Zyc">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </searchBar>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.46202266219999999" green="0.83828371759999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="2Zv-Tg-mmP" firstAttribute="top" secondItem="8Bl-IK-Zyc" secondAttribute="bottom" constant="21" id="4xQ-eX-SNw"/>
+                                    <constraint firstAttribute="trailing" secondItem="8Bl-IK-Zyc" secondAttribute="trailing" id="60z-JX-dYz"/>
+                                    <constraint firstItem="2Zv-Tg-mmP" firstAttribute="top" secondItem="8Bl-IK-Zyc" secondAttribute="bottom" constant="21" id="GnI-l2-tBT"/>
+                                    <constraint firstItem="8Bl-IK-Zyc" firstAttribute="leading" secondItem="yVf-bL-4Rw" secondAttribute="leading" id="PPu-em-Ska"/>
+                                    <constraint firstAttribute="height" constant="176" id="ciT-g7-94v"/>
+                                    <constraint firstItem="8Bl-IK-Zyc" firstAttribute="top" secondItem="yVf-bL-4Rw" secondAttribute="top" id="fSw-K2-5Og"/>
+                                    <constraint firstItem="2Zv-Tg-mmP" firstAttribute="centerX" secondItem="yVf-bL-4Rw" secondAttribute="centerX" id="wur-1g-cRh"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="yVf-bL-4Rw" firstAttribute="trailing" secondItem="pTG-JL-Z3g" secondAttribute="trailing" id="6tb-FV-tAR"/>
+                            <constraint firstItem="yVf-bL-4Rw" firstAttribute="top" secondItem="pTG-JL-Z3g" secondAttribute="top" constant="10" id="AdD-hi-jyG"/>
+                            <constraint firstItem="yVf-bL-4Rw" firstAttribute="leading" secondItem="pTG-JL-Z3g" secondAttribute="leading" id="vhQ-HA-opa"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="pTG-JL-Z3g"/>
                     </view>
                     <connections>
-                        <outlet property="addCityTextField" destination="eKm-Lu-gQT" id="xOo-dl-N59"/>
+                        <outlet property="searchBar" destination="8Bl-IK-Zyc" id="WCy-e8-PiC"/>
+                        <outlet property="viewContainer" destination="yVf-bL-4Rw" id="pYF-Zo-2aP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qsr-3i-eOn" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -294,6 +307,15 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="omZ-HE-baH">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="globalTint">
+                                <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>

@@ -72,10 +72,13 @@ class DisplayCitiesViewController: UITableViewController, AddCityDelegate {
         Alamofire.request(url, method: .get, parameters: parameters).responseJSON {
             response in
             if response.result.isSuccess {
-                print("Success! Got the weather data")
+             //   print("Success! Got the weather data")
                 
                 let weatherJSON : JSON =  JSON(response.result.value!)
-              //  print(weatherJSON)
+             //   print(weatherJSON)
+             //   let errorMessage = String(weatherJSON["message"]) {
+                //    processErrors(errorMessage)
+               // }
                 if (!isNewCity) {
                     self.updateWeatherData(json: weatherJSON, with: cityWeatherInfo, with: isNewCity)
                 } else {
@@ -87,10 +90,26 @@ class DisplayCitiesViewController: UITableViewController, AddCityDelegate {
                 }
             }
             } else {
-                print("Error \(String(describing: response.result.error))")
-                self.cellInfo.cityLabel.text = "Connection Issues"
+                self.processErrors(errorMessage: String(describing: response.result.error))
+           //     self.cellInfo.cityLabel.text = "Connection Issues"
             }
+          /*  else {
+                print("Error \(String(describing: response.result.error))")
+                
+            }*/
         }
+    }
+    
+    func processErrors(errorMessage: String) {
+        let myAlert = UIAlertController(title: "Alert", message: errorMessage, preferredStyle: UIAlertController.Style.alert)
+        
+        let okAction = UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil)
+        
+        myAlert.addAction(okAction)
+        
+        self.present(myAlert, animated: true, completion: nil)
+        
+        return
     }
     
     
@@ -103,8 +122,13 @@ class DisplayCitiesViewController: UITableViewController, AddCityDelegate {
     //Write the updateWeatherData method here:
         func updateWeatherData(json : JSON, with cityWeatherInfo : WeatherDataModel, with isNewCity: Bool) {
         
-        if let tempResult = json["main"]["temp"].double {
             
+           let city = json["name"].stringValue
+           
+            if city != "" {
+        //        processErrors(errorMessage: "city not found")
+        //    }
+                let tempResult = json["main"]["temp"].double!
             
             
         //    let cityWeatherInfo = WeatherDataModel(context: self.context)
@@ -137,6 +161,7 @@ class DisplayCitiesViewController: UITableViewController, AddCityDelegate {
             
         }
         else {
+                processErrors(errorMessage: "city not found")
           //  cellInfo.cityLabel.text = "Weather Unavailable"
         }
     }
