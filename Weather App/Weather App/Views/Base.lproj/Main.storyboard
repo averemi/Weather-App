@@ -108,39 +108,43 @@
                                             <rect key="frame" x="0.0" y="0.0" width="321" height="56"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="DayOfWeek" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oMg-TX-r2D">
-                                                    <rect key="frame" x="10" y="28" width="150.5" height="0.0"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="DayOfWeek" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oMg-TX-r2D">
+                                                    <rect key="frame" x="10" y="17.5" width="194.5" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dyc-mG-yjt">
-                                                    <rect key="frame" x="180.5" y="20" width="43" height="16"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="260" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Temp" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DQT-Pn-3YX">
+                                                    <rect key="frame" x="251.5" y="13" width="59.5" height="30"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="43" id="X5s-ei-chf"/>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="43" id="taM-8B-M5T"/>
                                                     </constraints>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Temp" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DQT-Pn-3YX">
-                                                    <rect key="frame" x="243.5" y="26.5" width="59.5" height="3"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dyc-mG-yjt">
+                                                    <rect key="frame" x="206.5" y="19" width="43" height="18"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="43" id="X5s-ei-chf"/>
+                                                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="43" id="okd-eX-KO9"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                         </view>
                                         <constraints>
-                                            <constraint firstItem="dyc-mG-yjt" firstAttribute="leading" secondItem="oMg-TX-r2D" secondAttribute="trailing" constant="20" id="8nN-an-Ioq"/>
-                                            <constraint firstItem="oMg-TX-r2D" firstAttribute="top" secondItem="5px-vM-dXe" secondAttribute="topMargin" id="Dm1-5B-9T1"/>
-                                            <constraint firstItem="dyc-mG-yjt" firstAttribute="centerY" secondItem="5px-vM-dXe" secondAttribute="centerY" id="Gzc-mm-jDk"/>
-                                            <constraint firstItem="DQT-Pn-3YX" firstAttribute="centerY" secondItem="5px-vM-dXe" secondAttribute="centerY" id="JiE-cr-N9i"/>
-                                            <constraint firstItem="dyc-mG-yjt" firstAttribute="centerY" secondItem="5px-vM-dXe" secondAttribute="centerY" id="KY2-RW-MJR"/>
-                                            <constraint firstItem="oMg-TX-r2D" firstAttribute="centerY" secondItem="5px-vM-dXe" secondAttribute="centerY" id="RCN-9o-Cw5"/>
-                                            <constraint firstItem="dyc-mG-yjt" firstAttribute="top" secondItem="5px-vM-dXe" secondAttribute="topMargin" constant="-8" id="Sqr-ee-ySc"/>
-                                            <constraint firstItem="oMg-TX-r2D" firstAttribute="leading" secondItem="5px-vM-dXe" secondAttribute="leading" constant="10" id="aoJ-J7-6H5"/>
-                                            <constraint firstItem="DQT-Pn-3YX" firstAttribute="leading" secondItem="dyc-mG-yjt" secondAttribute="trailing" constant="20" id="cfm-ar-rx1"/>
-                                            <constraint firstAttribute="trailingMargin" secondItem="DQT-Pn-3YX" secondAttribute="trailing" constant="10" id="ch6-Du-RRV"/>
-                                            <constraint firstItem="oMg-TX-r2D" firstAttribute="baseline" secondItem="DQT-Pn-3YX" secondAttribute="baseline" id="kPk-oX-dsm"/>
-                                            <constraint firstItem="dyc-mG-yjt" firstAttribute="leading" secondItem="oMg-TX-r2D" secondAttribute="trailing" constant="20" id="pn5-p1-68u"/>
+                                            <constraint firstAttribute="trailing" secondItem="DQT-Pn-3YX" secondAttribute="trailing" constant="10" id="1om-ja-cin"/>
+                                            <constraint firstItem="dyc-mG-yjt" firstAttribute="top" secondItem="5px-vM-dXe" secondAttribute="topMargin" constant="-9" id="7ND-8H-sqY"/>
+                                            <constraint firstItem="DQT-Pn-3YX" firstAttribute="centerY" secondItem="dyc-mG-yjt" secondAttribute="centerY" id="DRQ-el-UR9"/>
+                                            <constraint firstItem="DQT-Pn-3YX" firstAttribute="centerY" secondItem="5px-vM-dXe" secondAttribute="centerY" id="Foj-Eh-cdS"/>
+                                            <constraint firstItem="DQT-Pn-3YX" firstAttribute="leading" secondItem="dyc-mG-yjt" secondAttribute="trailing" constant="2" id="Fv1-EX-ygb"/>
+                                            <constraint firstItem="DQT-Pn-3YX" firstAttribute="centerY" secondItem="5px-vM-dXe" secondAttribute="centerY" id="Gko-3v-hdN"/>
+                                            <constraint firstItem="DQT-Pn-3YX" firstAttribute="centerY" secondItem="oMg-TX-r2D" secondAttribute="centerY" id="Pk7-fz-iPr"/>
+                                            <constraint firstItem="oMg-TX-r2D" firstAttribute="leading" secondItem="5px-vM-dXe" secondAttribute="leadingMargin" constant="2" id="VBi-fR-6Rc"/>
+                                            <constraint firstItem="DQT-Pn-3YX" firstAttribute="leading" secondItem="dyc-mG-yjt" secondAttribute="trailing" constant="2" id="eYZ-ma-jou"/>
+                                            <constraint firstItem="dyc-mG-yjt" firstAttribute="leading" secondItem="oMg-TX-r2D" secondAttribute="trailing" constant="2" id="g6N-jb-UgN"/>
+                                            <constraint firstItem="oMg-TX-r2D" firstAttribute="centerY" secondItem="5px-vM-dXe" secondAttribute="centerY" id="kHn-S1-6Uo"/>
+                                            <constraint firstItem="dyc-mG-yjt" firstAttribute="centerY" secondItem="5px-vM-dXe" secondAttribute="centerY" id="pQd-eR-RL3"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="dayOfWeek" destination="oMg-TX-r2D" id="gTI-WA-3nQ"/>
